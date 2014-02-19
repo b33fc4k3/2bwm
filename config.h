@@ -1,3 +1,10 @@
+// SEE ALSO: https://github.com/yrmt/dotfiles/blob/master/2bwm.conf
+// SEE ALSO: http://pastebin.com/aNKYQtHk
+// SEE ALSO: http://git.z3bra.org/cgit.cgi/2bwm/tree/
+// SEE ALSO: http://www.reddit.com/r/unixporn/comments/1wge5f/arch2bwm_bring_your_terminal_to_the_next_level/
+// style: http://ybeastie.deviantart.com/art/FreeBSD-and-Mcwm-beast-364293840
+// colors inverted
+// inner ährm ... now outer border way thinner than now inner ... now outer just plain black
 ///---User configurable stuff---///
 ///---Modifiers---///
 #define MOD             XCB_MOD_MASK_4       /* Super/Windows key  or check xmodmap(1) with -pm*/
@@ -13,27 +20,49 @@ static const float    resize_keep_aspect_ratio= 1.03;
 ///---Offsets---///
 /*0)offsetx          1)offsety
  *2)maxwidth         3)maxheight */
-static const uint8_t offsets[] = {0,0,0,0};
+//static const uint8_t offsets[] = {0,0,0,0};
+static const uint8_t offsets[] = {20,20,40,40};
 ///---Colors---///
 /*0)focuscol         1)unfocuscol
  *2)fixedcol         3)unkilcol
  *4)fixedunkilcol    5)outerbordercol
  *6)emptycol         */
-static const char *colors[] = {"#323232","#191919","#4c5739","#682a2a","#604818","#151515","#222222"};
+// http://www.w3schools.com/html/html_colors.asp
+//                                focus     unfocus   fixed     unkill    fixunkil  outerbor  empty
+// for inverted colors = true
+//static const char *colors[] = {"#323232","#191919","#4c5739","#682a2a","#604818","#151515","#222222"};
+
+// for inverted colors = false
+static const char *colors[] = {"#404040","#282828","#4c5739","#682a2a","#604818","#000000","#222222"}; // ybeastie-like
+//static const char *colors[] = {"#35586c","#333333","#7a8c5c","#ff6666","#cc9933","#0d131a","#000000"}; // crap std but blue outer border
+//static const char *colors[] = {"#1c678c","#44484c","#7a8c5c","#ff6666","#cc9933","#0d131a","#000000"};
 /* if this is set to true the inner border and outer borders colors will be swapped */
 static const bool inverted_colors = false;
+//static const bool inverted_colors = true;
 ///---Borders---///
 /*0) Outer border size. If you put this negative it will be a square.
  *1) Full borderwidth    2) Magnet border size    
  *3) Resize border size  */
-static const uint8_t borders[] = {2,5,9,9};
+//static const uint8_t borders[] = {2,5,9,9};
+// outer border = marking color toggling fixing
+// full border  = outer plus ?
+//static const uint8_t borders[] = {5,10,50,30};
+static const uint8_t borders[] = {2,10,50,30}; // ybeastie like
 /* Windows that won't have a border.*/
 #define LOOK_INTO "_NET_WM_NAME"
-static const char *ignore_names[] = {"bar"};
+//static const char *ignore_names[] = {"bar"};
+static const char *ignore_names[] = {"bar", "chromium-browser", "browser"};
 ///--Menus and Programs---///
+// what to do with this my_menu thing !?
+// also run-or-raise stumpwm like for emacs and all sorts
 static const char *menucmd[]   = { "/usr/bin/my_menu.sh", NULL };
+static const char *run9menustart[]   = { "/home/marten/scripts/9main.sh /home/marten/scripts/menu1.txt", NULL };
 static const char *gmrun[]     = { "/usr/bin/gmrun",NULL};
-static const char *terminal[]  = { "urxvtc", NULL };
+//static const char *terminal[]  = { "urxvtc", NULL };
+static const char *terminal[]  = { "urxvt", NULL };
+// MARTEN
+static const char *dmenu[]  = { "/home/marten/scripts/dmenu_run_dark", NULL };
+static const char *lock[]  = { "xtrlock", NULL };
 ///--Custom foo---///
 static void halfandcentered(const Arg *arg)
 {
@@ -107,6 +136,7 @@ static key keys[] = {
     // Full screen window without borders
     {  MOD ,              XK_x,         maximize,          {.i=0}},
     //Full screen window without borders overiding offsets
+    // FLASH trick ... yay ... offsets and video fine ^^
     {  MOD |SHIFT ,       XK_x,          maximize,          {.i=1}},
     // Maximize vertically
     {  MOD ,              XK_m,          maxvert_hor,       {.i=1}},
@@ -159,6 +189,9 @@ static key keys[] = {
     {  MOD ,              XK_Return,     start,             {.com = terminal}},
     {  MOD ,              XK_w,          start,             {.com = menucmd}},
     {  MOD |SHIFT,        XK_w,          start,             {.com = gmrun}},
+    {  MOD ,              XK_p,          start,             {.com = dmenu}},
+    {  MOD |SHIFT,        XK_e,          start,             {.com = lock}},
+    {  MOD |CONTROL,      XK_s,          start,             {.com = run9menustart}},
     // Exit or restart 2bwm
     {  MOD |CONTROL,      XK_q,          twobwm_exit,         {.i=0}},
     {  MOD |CONTROL,      XK_r,          twobwm_restart,      {.i=0}},
