@@ -6,6 +6,16 @@
 // colors inverted
 // inner ährm ... now outer border way thinner than now inner ... now outer just plain black
 ///---User configurable stuff---///
+
+// strcat()
+//#define MY_PATH "/home/marten/"
+//#define CAT(a, b) a ## b
+//int main( void )
+//{
+//    printf("%s", CAT(MY_PATH, "scripts/dmenu"));
+//    return 0;
+//}
+
 ///---Modifiers---///
 #define MOD             XCB_MOD_MASK_4       /* Super/Windows key  or check xmodmap(1) with -pm*/
 ///--Speed---///
@@ -21,6 +31,8 @@ static const float    resize_keep_aspect_ratio= 1.03;
 /*0)offsetx          1)offsety
  *2)maxwidth         3)maxheight */
 //static const uint8_t offsets[] = {0,0,0,0};
+//static const uint8_t offsets[] = {20,20,40,40};
+// TODO kein snap to borders mehr ... nervt
 static const uint8_t offsets[] = {20,20,40,40};
 ///---Colors---///
 /*0)focuscol         1)unfocuscol
@@ -47,7 +59,7 @@ static const bool inverted_colors = false;
 // outer border = marking color toggling fixing
 // full border  = outer plus ?
 //static const uint8_t borders[] = {5,10,50,30};
-static const uint8_t borders[] = {2,10,50,30}; // ybeastie like
+static const uint8_t borders[] = {2,10,5,30}; // ybeastie like
 /* Windows that won't have a border.*/
 #define LOOK_INTO "_NET_WM_NAME"
 //static const char *ignore_names[] = {"bar"};
@@ -61,6 +73,7 @@ static const char *gmrun[]     = { "/usr/bin/gmrun",NULL};
 //static const char *terminal[]  = { "urxvtc", NULL };
 static const char *terminal[]  = { "urxvt", NULL };
 // MARTEN
+//static const char *dmenu[]  = { "/home/marten/scripts/dmenu_run_dark", NULL };
 static const char *dmenu[]  = { "/home/marten/scripts/dmenu_run_dark", NULL };
 static const char *lock[]  = { "xtrlock", NULL };
 ///--Custom foo---///
